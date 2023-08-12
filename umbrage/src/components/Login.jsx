@@ -12,12 +12,15 @@ export const Login = (props) => {
     }
 
     return (
-        <form onSubmit={ handleSubmit }>
+        <div className="login-form-container">
+        <form className="login-form" onSubmit={ handleSubmit }>
+            <label className="welcome-header">Welcome</label>
             <label htmlFor="username">Username</label>
-            <input type="username" placeholder="youremail@email.com" id="username" name="username"></input>
+            <input type="username" placeholder="example@email.com" id="username" name="username"></input>
             <label htmlFor="password">Password</label>
-            <input type="password" placeholder="********" id="password" name="password"></input>
+            <input type="password" placeholder="**********" id="password" name="password"></input>
             <button type="submit" onClick={() => props.onFormSwitch('people')}>Log In</button>
         </form>
+        </div>
     )
 }
