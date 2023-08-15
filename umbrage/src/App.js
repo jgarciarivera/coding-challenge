@@ -10,12 +10,6 @@ export const App = () => {
     setToken(bearerToken);
   };
 
-  // return (
-  //   <div className="App">
-  //     {token ? <People token={token} /> : <Login onLogin={handleLogin} />}
-  //   </div>
-  // );
-
   return (
     <div className="App">
       {token ? <People token={token} /> : <Login onLogin={handleLogin} />}
