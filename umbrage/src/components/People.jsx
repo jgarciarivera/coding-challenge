@@ -41,10 +41,13 @@ export const People = ({ token }) => {
           <Card key={person.id} style={{ width: "18rem" }}>
             <Card.Img variant="top" src={person.avatar} />
             <Card.Body>
-              <Card.Title>{`${person.first_name} ${person.last_name}`}</Card.Title>
+              <Card.Title>
+                {person.first_name} {person.last_name}
+              </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 {person.job_title}
               </Card.Subtitle>
+              <Card.Text> Email: {person.email} </Card.Text>
             </Card.Body>
           </Card>
         ))}
