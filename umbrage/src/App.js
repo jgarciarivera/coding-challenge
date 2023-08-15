@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-import { Login } from './components/Login';
-import { People } from './components/People';
-import React, { useState } from "react"
+import "./App.css";
+import React, { useState } from "react";
+import { Login } from "./components/Login";
+import { People } from "./components/People";
 
+export const App = () => {
+  const [token, setToken] = useState("");
 
-function App() {
+  const handleLogin = (bearerToken) => {
+    setToken(bearerToken);
+  };
 
-  const [ currentForm, setCurrentForm ] = useState('login');
-
-  const switchForm = (name) => {
-    setCurrentForm(name);
-  }
+  // return (
+  //   <div className="App">
+  //     {token ? <People token={token} /> : <Login onLogin={handleLogin} />}
+  //   </div>
+  // );
 
   return (
     <div className="App">
-      { currentForm === 'login' ? <Login onFormSwitch={ switchForm }/> : <People/> }
+      {token ? <People token={token} /> : <Login onLogin={handleLogin} />}
     </div>
   );
-}
+};
 
 export default App;
