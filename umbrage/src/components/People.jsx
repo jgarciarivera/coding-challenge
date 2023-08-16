@@ -5,16 +5,44 @@ import { Accordion } from "react-bootstrap";
 export const People = ({ token }) => {
   const [people, setPeople] = useState([]);
 
-  useEffect(() => {
-    const fetchPeople = async () => {
-      let url = "https://umbrage-interview-api.herokuapp.com/people";
-      let bearerToken = `Bearer ${token}`;
+  const GetUpdatedPeopleData = async (peopleWithoutComments) => {
+    let peopleWithComments = [];
 
-      await fetch(url, {
+    for (let i = 0; i < peopleWithoutComments.length; i++) {
+      const id = peopleWithoutComments[i].id;
+
+      await fetch(`https://umbrage-interview-api.herokuapp.com/people/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: bearerToken,
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error retrieving comments data.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const personData = data.person;
+          peopleWithComments[i] = personData;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
+    return peopleWithComments;
+  };
+
+  useEffect(() => {
+    const fetchPeople = async () => {
+      await fetch("https://umbrage-interview-api.herokuapp.com/people", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => {
@@ -23,10 +51,10 @@ export const People = ({ token }) => {
           }
           return response.json();
         })
-        .then((data) => {
+        .then(async (data) => {
           const peopleData = data.people;
-          // const updatedPeopleData = await getUpdatedPeopleData(peopleData);
-          setPeople(peopleData);
+          const updatedPeopleData = await GetUpdatedPeopleData(peopleData);
+          setPeople(updatedPeopleData);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -54,7 +82,9 @@ export const People = ({ token }) => {
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Comments</Accordion.Header>
                   <Accordion.Body>
-                    This is where comments will be.
+                    {person.comments.map((comment) => (
+                      <div>{comment.comment}</div>
+                    ))}
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
