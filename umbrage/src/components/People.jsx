@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
+import { Accordion } from "react-bootstrap";
 
 export const People = ({ token }) => {
   const [people, setPeople] = useState([]);
@@ -24,6 +25,7 @@ export const People = ({ token }) => {
         })
         .then((data) => {
           const peopleData = data.people;
+          // const updatedPeopleData = await getUpdatedPeopleData(peopleData);
           setPeople(peopleData);
         })
         .catch((error) => {
@@ -35,7 +37,7 @@ export const People = ({ token }) => {
 
   return (
     <div>
-      <h1>People Page!</h1>
+      <div className="people-header">People</div>
       <div className="card-container">
         {people.map((person) => (
           <Card key={person.id} style={{ width: "18rem" }}>
@@ -47,7 +49,15 @@ export const People = ({ token }) => {
               <Card.Subtitle className="mb-2 text-muted">
                 {person.job_title}
               </Card.Subtitle>
-              <Card.Text> Email: {person.email} </Card.Text>
+              <Card.Text> {person.email} </Card.Text>
+              <Accordion>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>Comments</Accordion.Header>
+                  <Accordion.Body>
+                    This is where comments will be.
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
             </Card.Body>
           </Card>
         ))}

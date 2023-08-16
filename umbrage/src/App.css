@@ -17,6 +17,16 @@
   min-width: 20vh;
 }
 
+.card {
+  margin: 1rem;
+}
+
+.people-header {
+  margin: 1rem;
+  font-size: xx-large;
+  color: white;
+}
+
 .welcome-header {
   font-size: x-large;
   text-align: center;
