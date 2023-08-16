@@ -17,6 +17,10 @@
   min-width: 20vh;
 }
 
+.card-container {
+  display: grid;
+}
+
 .card {
   margin: 1rem;
 }

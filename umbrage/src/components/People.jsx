@@ -67,8 +67,8 @@ export const People = ({ token }) => {
     <div>
       <div className="people-header">People</div>
       <div className="card-container">
-        {people.map((person) => (
-          <Card key={person.id} style={{ width: "18rem" }}>
+        {people.map((person, index) => (
+          <Card key={index} style={{ width: "18rem" }}>
             <Card.Img variant="top" src={person.avatar} />
             <Card.Body>
               <Card.Title>
@@ -83,7 +83,7 @@ export const People = ({ token }) => {
                   <Accordion.Header>Comments</Accordion.Header>
                   <Accordion.Body>
                     {person.comments.map((comment) => (
-                      <div>{comment.comment}</div>
+                      <li>{comment.comment}</li>
                     ))}
                   </Accordion.Body>
                 </Accordion.Item>
