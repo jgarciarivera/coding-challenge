@@ -7,14 +7,55 @@
   background-image: linear-gradient(45deg, #0e1738, #37185d, #592964, #9b5c4a);
 }
 
-.login-form-container,
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 5px;
+  min-width: 32vh;
+  background-color: white;
+  box-shadow: 0px 5px 5px 0px #1d2234;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  border-radius: 12px;
   background-color: white;
-  min-width: 20vh;
+}
+
+.welcome-header {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  color: dimgray;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  color: dimgray;
+  padding: 0.5rem 0;
+}
+
+input {
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: gainsboro;
+}
+
+.login-button {
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 1rem;
+  margin: 1rem 0 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: coral;
 }
 
 .card-container {
@@ -29,36 +70,4 @@
   margin: 1rem;
   font-size: xx-large;
   color: white;
-}
-
-.welcome-header {
-  font-size: x-large;
-  text-align: center;
-  padding: 1rem;
-}
-
-label {
-  font-weight: bold;
-  color: dimgray;
-  text-align: left;
-  padding: 0.5rem 0;
-}
-
-input {
-  background-color: gainsboro;
-  margin: 0.8rem 0;
-  padding: 1rem;
-  border: none;
-  border-radius: 12px;
-}
-
-button {
-  font-size: large;
-  font-weight: bold;
-  padding: 20px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  color: white;
-  background-color: coral;
 }

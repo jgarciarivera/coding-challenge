@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 
 export const Login = ({ onLogin }) => {
   const [inputUsername, setInputUsername] = useState("");
@@ -34,7 +35,7 @@ export const Login = ({ onLogin }) => {
 
   return (
     <div className="login-form-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+      <Form.Group className="login-form" onSubmit={handleSubmit}>
         <label className="welcome-header">Welcome</label>
         <label htmlFor="username">Username</label>
         <input
@@ -54,10 +55,10 @@ export const Login = ({ onLogin }) => {
           id="password"
           name="password"
         ></input>
-        <button type="submit" onClick={handleSubmit}>
+        <button className="login-button" type="submit" onClick={handleSubmit}>
           Log In
         </button>
-      </form>
+      </Form.Group>
     </div>
   );
 };
