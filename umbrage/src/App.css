@@ -62,17 +62,14 @@ input {
 .people-header {
   text-align: center;
   font-size: 4rem;
-  padding: 2rem;
+  padding-bottom: 3rem;
   font-weight: bold;
   color: white;
 }
 
 .card {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
-  width: fit-content;
-  height: fit-content;
-  padding: none;
+  margin-left: 0.6rem;
+  margin-right: 0.6rem;
 }
 
 .g-4 {
