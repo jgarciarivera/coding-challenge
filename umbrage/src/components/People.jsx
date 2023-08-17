@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button, Modal } from "react-bootstrap";
+import { Card, Button, Modal, Row, Col } from "react-bootstrap";
 
 export const People = ({ token }) => {
   const [people, setPeople] = useState([]);
@@ -78,7 +78,7 @@ export const People = ({ token }) => {
         </Modal.Body>
       </Modal>
       <div className="people-header">People</div>
-      <div className="card-container">
+      <Row xs={1} md={2} className="g-4">
         {people.map((person, index) => (
           <Card key={index} style={{ width: "18rem" }}>
             <Card.Img variant="top" src={person.avatar} />
@@ -96,11 +96,13 @@ export const People = ({ token }) => {
                   setSelectedId(person.id);
                   setShowModal(true);
                 }}
-              ></Button>
+              >
+                Comments
+              </Button>
             </Card.Body>
           </Card>
         ))}
-      </div>
+      </Row>
     </div>
   );
 };
