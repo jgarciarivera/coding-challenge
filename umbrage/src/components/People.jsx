@@ -1,40 +1,43 @@
 import React, { useState, useEffect } from "react";
-import Card from "react-bootstrap/Card";
-import { Accordion } from "react-bootstrap";
+import { Card, Button, Modal } from "react-bootstrap";
 
 export const People = ({ token }) => {
   const [people, setPeople] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
 
-  const GetUpdatedPeopleData = async (peopleWithoutComments) => {
-    let peopleWithComments = [];
-
-    for (let i = 0; i < peopleWithoutComments.length; i++) {
-      const id = peopleWithoutComments[i].id;
-
-      await fetch(`https://umbrage-interview-api.herokuapp.com/people/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error retrieving comments data.");
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (selectedId) {
+        await fetch(
+          `https://umbrage-interview-api.herokuapp.com/people/${selectedId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
-          return response.json();
-        })
-        .then((data) => {
-          const personData = data.person;
-          peopleWithComments[i] = personData;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-
-    return peopleWithComments;
-  };
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error retrieving comments data.");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            let commentsData = data.person.comments;
+            setModalData(commentsData);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+            setModalData(null);
+          });
+      }
+    };
+    fetchComments();
+  }, [selectedId]);
 
   useEffect(() => {
     const fetchPeople = async () => {
@@ -53,8 +56,7 @@ export const People = ({ token }) => {
         })
         .then(async (data) => {
           const peopleData = data.people;
-          const updatedPeopleData = await GetUpdatedPeopleData(peopleData);
-          setPeople(updatedPeopleData);
+          setPeople(peopleData);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -65,6 +67,16 @@ export const People = ({ token }) => {
 
   return (
     <div>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Comments</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {modalData.map((comment, index) => (
+            <li key={index}>{comment.comment}</li>
+          ))}
+        </Modal.Body>
+      </Modal>
       <div className="people-header">People</div>
       <div className="card-container">
         {people.map((person, index) => (
@@ -78,16 +90,13 @@ export const People = ({ token }) => {
                 {person.job_title}
               </Card.Subtitle>
               <Card.Text> {person.email} </Card.Text>
-              <Accordion>
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>Comments</Accordion.Header>
-                  <Accordion.Body>
-                    {person.comments.map((comment) => (
-                      <li>{comment.comment}</li>
-                    ))}
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  setSelectedId(person.id);
+                  setShowModal(true);
+                }}
+              ></Button>
             </Card.Body>
           </Card>
         ))}
