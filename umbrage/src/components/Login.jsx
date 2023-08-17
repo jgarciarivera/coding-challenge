@@ -7,15 +7,15 @@ export const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let url = "https://umbrage-interview-api.herokuapp.com/login";
-    let body = { username: inputUsername, password: inputPassword };
-
-    await fetch(url, {
+    await fetch("https://umbrage-interview-api.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        username: inputUsername,
+        password: inputPassword,
+      }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -28,7 +28,7 @@ export const Login = ({ onLogin }) => {
         onLogin(token);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error", error);
       });
   };
 

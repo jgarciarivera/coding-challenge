@@ -22,7 +22,7 @@ export const People = ({ token }) => {
         )
           .then((response) => {
             if (!response.ok) {
-              throw new Error("Error retrieving comments data.");
+              throw new Error("Error fetching comments.");
             }
             return response.json();
           })
@@ -31,7 +31,7 @@ export const People = ({ token }) => {
             setModalData(commentsData);
           })
           .catch((error) => {
-            console.error("Error fetching data:", error);
+            console.error("Error", error);
             setModalData(null);
           });
       }
@@ -50,7 +50,7 @@ export const People = ({ token }) => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Error retrieving people data.");
+            throw new Error("Error fetching people.");
           }
           return response.json();
         })
