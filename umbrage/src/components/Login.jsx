@@ -20,7 +20,7 @@ export const Login = ({ onLogin }) => {
       .then((response) => {
         if (!response.ok) {
           throw new Error(
-            `Request failed with the following response: ${response.status} ${response.statusText}`
+            `Login failed. Request returned the following response: "${response.status} ${response.statusText}"`
           );
         }
         return response.json();

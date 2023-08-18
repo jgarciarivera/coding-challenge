@@ -3,15 +3,17 @@ import { Card, Button, Modal, Row, Col } from "react-bootstrap";
 
 export const People = ({ token }) => {
   const [people, setPeople] = useState([]);
+  const [person, setPerson] = useState({
+    person: { comments: [{ comment: "" }] },
+  });
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState([]);
-  const [selectedId, setSelectedId] = useState("");
+  const [selectedPersonId, setSelectedPersonId] = useState("");
 
   useEffect(() => {
     const fetchComments = async () => {
-      if (selectedId) {
+      if (selectedPersonId) {
         await fetch(
-          `https://umbrage-interview-api.herokuapp.com/people/${selectedId}`,
+          `https://umbrage-interview-api.herokuapp.com/people/${selectedPersonId}`,
           {
             method: "GET",
             headers: {
@@ -27,17 +29,17 @@ export const People = ({ token }) => {
             return response.json();
           })
           .then((data) => {
-            let commentsData = data.person.comments;
-            setModalData(commentsData);
+            let commentsData = data.person;
+            setPerson(commentsData);
           })
           .catch((error) => {
             console.error("Error", error);
-            setModalData(null);
+            setPerson(null);
           });
       }
     };
     fetchComments();
-  }, [selectedId]);
+  }, [selectedPersonId]);
 
   useEffect(() => {
     const fetchPeople = async () => {
@@ -67,12 +69,14 @@ export const People = ({ token }) => {
 
   return (
     <div>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal centered show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Comments</Modal.Title>
+          <Modal.Title>
+            Comments for {person.first_name} {person.last_name}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {modalData.map((comment, index) => (
+          {person.comments?.map((comment, index) => (
             <li key={index}>{comment.comment}</li>
           ))}
         </Modal.Body>
@@ -91,13 +95,12 @@ export const People = ({ token }) => {
               </Card.Subtitle>
               <Card.Text> {person.email} </Card.Text>
               <Button
-                variant="primary"
                 onClick={() => {
-                  setSelectedId(person.id);
+                  setSelectedPersonId(person.id);
                   setShowModal(true);
                 }}
               >
-                Comments
+                Details
               </Button>
             </Card.Body>
           </Card>
