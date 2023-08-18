@@ -1,6 +1,10 @@
 # Umbrage Studios Coding Challenge
 This is a front-end client that interacts with Umbrage Studios's APIs to authenticate a user, fetch and display a list of people, and provide granular details about a person when selected.
 
+<img width="700" alt="Login" src="https://github.com/jgarciarivera/coding-challenge/assets/20329478/5e855bd6-da9d-4323-9752-8cc43137df98">
+<img width="700" alt="People" src="https://github.com/jgarciarivera/coding-challenge/assets/20329478/26e88bff-1141-421c-825d-669e7ebb7427">
+<img width="700" alt="Comments" src="https://github.com/jgarciarivera/coding-challenge/assets/20329478/26d7840e-a0fd-43cb-8fc2-adabeb579445">
+
 # Technologies Used
 - JavaScript, HTML, CSS
 - React, React Bootstrap
