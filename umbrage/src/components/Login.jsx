@@ -7,7 +7,6 @@ export const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     await fetch("https://umbrage-interview-api.herokuapp.com/login", {
       method: "POST",
       headers: {
@@ -20,7 +19,9 @@ export const Login = ({ onLogin }) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Username or password is invalid.");
+          throw new Error(
+            `Request failed with the following response: ${response.status} ${response.statusText}`
+          );
         }
         return response.json();
       })
@@ -30,6 +31,7 @@ export const Login = ({ onLogin }) => {
       })
       .catch((error) => {
         console.error("Error", error);
+        alert(error.message);
       });
   };
 
@@ -45,6 +47,7 @@ export const Login = ({ onLogin }) => {
           placeholder="example@email.com"
           id="username"
           name="username"
+          autoComplete="off"
         ></input>
         <label htmlFor="password">Password</label>
         <input
@@ -55,7 +58,12 @@ export const Login = ({ onLogin }) => {
           id="password"
           name="password"
         ></input>
-        <button className="login-button" type="submit" onClick={handleSubmit}>
+        <button
+          disabled={!inputUsername || !inputPassword}
+          className="login-button"
+          type="submit"
+          onClick={handleSubmit}
+        >
           Log In
         </button>
       </Form.Group>

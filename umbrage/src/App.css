@@ -26,7 +26,7 @@
 }
 
 .welcome-header {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   text-align: center;
   padding: 1rem;
   color: dimgray;
@@ -44,6 +44,7 @@ input {
   padding: 1rem;
   border: none;
   border-radius: 5px;
+  outline-color: #592964;
   background-color: gainsboro;
 }
 
@@ -57,6 +58,12 @@ input {
   cursor: pointer;
   color: white;
   background-color: coral;
+}
+
+button:disabled,
+button[disabled] {
+  background-color: rgba(255, 127, 80, 0.511);
+  color: white;
 }
 
 .people-header {
