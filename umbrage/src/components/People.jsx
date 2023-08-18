@@ -99,6 +99,14 @@ export const People = ({ token }) => {
               </Card.Subtitle>
               <Card.Text> {person.email} </Card.Text>
               <Button
+                style={{
+                  backgroundColor: "coral",
+                  fontSize: "1.1rem",
+                  fontWeight: "bold",
+                  border: "none",
+                  padding: "0.5rem",
+                  width: "50%",
+                }}
                 onClick={() => {
                   setSelectedPersonId(person.id);
                   setShowModal(true);
