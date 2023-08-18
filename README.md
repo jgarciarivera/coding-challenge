@@ -1,4 +1,8 @@
 # Umbrage Studios Coding Challenge
-This is a front-end client, written in JavaScript and React, which reaches out to Umbrage Studios's API to authenticate, get a list of people, and provide person-specific details when a person is selected.
+This is a front-end client that reaches out to Umbrage Studios's API to authenticate a user, get a list of people, and provide granular details about a person when selected.
 
 # Installation
+You will need to install the following dependencies on your machine.
+`Test 1`
+`Test 2`
+`Test 3`
