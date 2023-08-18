@@ -10,7 +10,36 @@ export const People = ({ token }) => {
   const [selectedPersonId, setSelectedPersonId] = useState("");
 
   useEffect(() => {
-    const fetchComments = async () => {
+    const fetchPeople = async () => {
+      await fetch("https://umbrage-interview-api.herokuapp.com/people", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Error fetching people data. Request returned the following response: "${response.status} ${response.statusText}"`
+            );
+          }
+          return response.json();
+        })
+        .then(async (data) => {
+          const peopleData = data.people;
+          setPeople(peopleData);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert(error.message);
+        });
+    };
+    fetchPeople();
+  }, [token]);
+
+  useEffect(() => {
+    const fetchPerson = async () => {
       if (selectedPersonId) {
         await fetch(
           `https://umbrage-interview-api.herokuapp.com/people/${selectedPersonId}`,
@@ -24,48 +53,25 @@ export const People = ({ token }) => {
         )
           .then((response) => {
             if (!response.ok) {
-              throw new Error("Error fetching comments.");
+              throw new Error(
+                `Error fetching person data. Request returned the following response: "${response.status} ${response.statusText}"`
+              );
             }
             return response.json();
           })
           .then((data) => {
-            let commentsData = data.person;
-            setPerson(commentsData);
+            let personData = data.person;
+            setPerson(personData);
           })
           .catch((error) => {
             console.error("Error", error);
             setPerson(null);
+            alert(error.message);
           });
       }
     };
-    fetchComments();
+    fetchPerson();
   }, [selectedPersonId]);
-
-  useEffect(() => {
-    const fetchPeople = async () => {
-      await fetch("https://umbrage-interview-api.herokuapp.com/people", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error fetching people.");
-          }
-          return response.json();
-        })
-        .then(async (data) => {
-          const peopleData = data.people;
-          setPeople(peopleData);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    };
-    fetchPeople();
-  }, [token]);
 
   return (
     <div>
