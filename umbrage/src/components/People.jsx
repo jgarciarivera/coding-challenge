@@ -84,7 +84,11 @@ export const People = ({ token }) => {
       <div className="people-header">People</div>
       <Row xs={1} md={2} className="g-4">
         {people.map((person, index) => (
-          <Card className="card" key={index} style={{ width: "18rem" }}>
+          <Card
+            className="card"
+            key={index}
+            style={{ width: "18rem", padding: "0rem" }}
+          >
             <Card.Img variant="top" src={person.avatar} />
             <Card.Body>
               <Card.Title>
